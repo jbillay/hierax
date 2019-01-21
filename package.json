@@ -1,0 +1,19 @@
+{
+  "name": "hierax",
+  "version": "0.0.1",
+  "description": "Display hierarchy relationship in a graph",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"no start script\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbillay/hierax.git"
+  },
+  "author": "Jeremy Billay <jbillay@gmail.com> (https://github.com/jbillay)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jbillay/hierax/issues"
+  },
+  "homepage": "https://github.com/jbillay/hierax#readme"
+}
