@@ -1,0 +1,150 @@
+swagger: "2.0"
+info:
+  version: 0.0.1
+  title: HieraX
+  description: Hierax API engine
+basePath: /v1
+tags:
+  - name: Entity
+    description: Entity endpoints
+  - name: Specification
+    description: The swagger API specification
+
+consumes:
+  - application/json
+produces:
+  - application/json
+
+
+definitions:
+  EntityBody:
+    type: object
+    title: entity
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        example: Test
+
+paths:
+  /entity:
+    get:
+      tags:
+        - Entity
+      description: Fetch all entities
+      responses:
+        200:
+          description: Returns all entities
+
+  /entity/{id}:
+    get:
+      tags:
+        - Entity
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the entity to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the entity with the specified id
+        404:
+          description: Entity not found
+
+  /user/{id}:
+    get:
+      tags:
+        - User
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The id of the user to retrieve
+          type: integer
+      responses:
+        200:
+          description: Return the user with the specified id
+        404:
+          description: User not found
+
+  /user:
+    post:
+      tags:
+        - User
+    consumes:
+        - application/json
+    parameters:
+      - in: body
+        name: user
+        description: User information
+        schema:
+          type: object
+          required:
+            - email
+            - password
+          properties:
+            email:
+              type: string
+            password:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+    responses:
+      201:
+        description: User created
+
+  /auth/login:
+    post:
+      tags:
+        - Login user
+    consumes:
+        - application/json
+    parameters:
+      - in: body
+        name: user
+        description: User authentication paramaters
+        schema:
+          type: object
+          required:
+            - username
+            - password
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+    responses:
+      200:
+        description: Authentication passed successly
+      401:
+        description: Authentication failed
+
+  /auth/logout:
+    get:
+      tags:
+        - Logout user
+      responses:
+        200:
+          description: User logout successly
+        401:
+          description: User logout failed
+
+  /syncDb:
+    get:
+      tags:
+        - Temporary DB cleaning
+      responses:
+        200:
+          description: Operation successly executed
+
+  /spec:
+    get:
+      tags:
+        - Specification
+      responses:
+        200:
+          description: Return the API specification

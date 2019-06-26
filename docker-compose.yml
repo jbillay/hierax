@@ -1,0 +1,50 @@
+version: '3.2'
+services:
+  hierax-db:
+    container_name: hierax-db
+    image: mysql:5.7
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - "dbdata:/data/db"
+      - ./db/init:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: noofs
+      MYSQL_USER: hierax
+      MYSQL_PASSWORD: hierax
+    healthcheck:
+      test: exit 0
+  hierax-api:
+    container_name: hierax-api
+    build: ./api/
+    volumes:
+      - ./api:/home/app/
+      - ./api/node_modules:/home/app/node_modules
+    depends_on:
+      - hierax-db
+    links:
+      - hierax-db
+    ports:
+      - '4242:4242' # expose ports - HOST:CONTAINER
+    environment:
+      - DEBUG=
+      - NODE_ENV=development
+  hierax-display:
+    container_name: hierax-display
+    build: ./display/
+    volumes:
+      - ./display:/home/display/
+      #- ./display/node_modules:/home/display/node_modules
+    depends_on:
+      - hierax-db
+    links:
+      - hierax-db
+    ports:
+      - '9615:9615' # expose ports - HOST:CONTAINER
+    environment:
+      - DEBUG=
+      - NODE_ENV=development
+volumes:
+  dbdata:
+    driver: local
