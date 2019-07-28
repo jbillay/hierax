@@ -98,6 +98,19 @@ paths:
         description: User created
 
   /auth/login:
+    options:
+      tags:
+        - Company House
+      responses:
+        default:
+          description: CORS headers for all operations
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: https://localhost:9615
+            Access-Control-Allow-Headers:
+              type: string
+              default: X-UA-Compatible, X-XSS-Protection, Authorization, content-type
     post:
       tags:
         - Login user

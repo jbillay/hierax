@@ -45,4 +45,9 @@ describe('Test Routes: Auth mechanism', () => {
     expect(responseEntity.body.status).toEqual('error');
     expect(responseEntity.body.msg).toEqual('Your token has expired. Please generate a new one');
   });
+  test('Should return 200 for an OPTION request', async () => {
+    const response = await request(app)
+      .options('/v1/auth/login');
+    expect(response.status).toBe(200);
+  });
 });

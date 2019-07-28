@@ -1,9 +1,9 @@
 import { DataLayer, Database } from '../server/common/db';
-import SequelizeMock from 'sequelize-mock';
-import { resolve } from 'bluebird';
+// import SequelizeMock from 'sequelize-mock';
+import { Sequelize } from 'sequelize';
 
 beforeAll(() => {
-  process.env.DATABSE_CONNECTION_URI = 'mysql://localhost:localhost@localhost-db:3306/hierax';
+  process.env.DATABSE_CONNECTION_URI = 'sqlite:./test/test.db';
 });
 
 class SequelizeFailConnect {
@@ -20,7 +20,7 @@ class SequelizeFailConnect {
 
 describe('Unit Test DB: Test Connection', () => {
   test('Database should be connecting', async () => {
-    const dbLayer: DataLayer = new DataLayer(SequelizeMock);
+    const dbLayer: DataLayer = new DataLayer(Sequelize);
     const dbConnect: DataLayer = await dbLayer.connection();
     expect(dbConnect).toBeDefined();
   });
@@ -36,7 +36,7 @@ describe('Unit Test DB: Test Connection', () => {
 
 describe('Unit Test DB: Test Initialisation', () => {
   test('Database should load models', async () => {
-    const dbLayer: DataLayer = new DataLayer(SequelizeMock);
+    const dbLayer: DataLayer = new DataLayer(Sequelize);
     const dbConnect: DataLayer = await dbLayer.connection();
     const database: Database = await dbConnect.init();
     expect(database.sequelize.models.User.tableName).toEqual('Users');

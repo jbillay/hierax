@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import l from './logger';
-
-const config = process.env.DATABSE_CONNECTION_URI;
+import { DataTypes } from 'sequelize/types';
 
 export interface Database {
   Sequelize: any;
@@ -14,6 +13,7 @@ export class DataLayer {
   protected database: Database;
 
   constructor(Sequelize) {
+    const config = process.env.DATABSE_CONNECTION_URI;
     const sequelize = new Sequelize(config);
     this.database = {
       Sequelize,
@@ -48,8 +48,8 @@ export class DataLayer {
                 return (file.indexOf('.') !== 0) && (file !== 'index.js') && (regex.test(file));
               })
               .forEach((file) => {
-                const model = require(path.join(baseDir, dir, file))
-                  .ModelFactory(this.database.sequelize, this.database.Sequelize);
+                const model = this.database.sequelize.import(path.join(baseDir, dir, file));
+                console.log(model);
                 l.info(model.name + ' model loaded');
                 this.database[model.name] = model;
               });

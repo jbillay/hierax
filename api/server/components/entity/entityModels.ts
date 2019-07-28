@@ -1,37 +1,30 @@
-import * as Sequelize from 'sequelize';
-import { SequelizeAttributes } from '../../common/typings/SequelizeAttribute';
+import { Sequelize, Model, DataTypes, BuildOptions } from 'sequelize';
+import {  HasManyGetAssociationsMixin, HasManyAddAssociationMixin,
+          HasManyHasAssociationMixin, Association, HasManyCountAssociationsMixin,
+          HasManyCreateAssociationMixin } from 'sequelize';
 
-export interface EntityAttributes {
-  id?: number;
-  name: string;
-  createdAt?: Date;
-  updatedAt?: Date;
+class Entity extends Model {
+  public id!: number; // Note that the `null assertion` `!` is required in strict mode.
+  public name!: string;
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
 }
 
-export interface EntityInstance
-  extends Sequelize.Instance<EntityAttributes>,
-  EntityAttributes {}
-
-export const ModelFactory = (
-  sequelize: Sequelize.Sequelize,
-  DataTypes: Sequelize.DataTypes,
-): Sequelize.Model<EntityInstance, EntityAttributes> => {
-  const attributes: SequelizeAttributes<EntityAttributes> = {
-    name: {
-      type: DataTypes.STRING,
+const model = (sequelize: Sequelize) => {
+  Entity.init({
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
-  };
-
-  const Entity = sequelize.define<EntityInstance, EntityAttributes>(
-    'Entity',
-    attributes,
-  );
-
-  // Example of associttion
-  // Entity.associate = (models) => {
-  //   Entity.hasMany(models.Comment);
-  //   Entity.belongsTo(models.User, { as: 'author', foreignKey: 'AuthorId' });
-  // };
-
+    name: {
+      type: new DataTypes.STRING(256),
+      allowNull: false,
+    } }, {
+        tableName: 'Entities',
+        sequelize, // this bit is important
+  });
   return Entity;
 };
+
+module.exports = model;
