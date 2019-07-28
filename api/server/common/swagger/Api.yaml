@@ -148,3 +148,50 @@ paths:
       responses:
         200:
           description: Return the API specification
+
+  /companyHouse:
+    options:
+      tags:
+        - Company House
+      responses:
+        default:
+          description: CORS headers for all operations
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: https://localhost:9615
+            Access-Control-Allow-Headers:
+              type: string
+              default: X-UA-Compatible, X-XSS-Protection, Authorization, content-type
+    post:
+      tags:
+        - Company House
+      description: Search for a company
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: companyInfo
+          description: Company information
+          schema:
+            type: object
+            required:
+              - name
+            properties:
+              name:
+                type: string
+              itemPerPage:
+                type: number
+              startIndex:
+                type: number
+      responses:
+        default:
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: https://localhost:9615
+            Access-Control-Allow-Headers:
+              type: string
+              default: X-UA-Compatible, X-XSS-Protection, Authorization, content-type
+        200:
+          description: Returns all companies that matches

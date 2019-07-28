@@ -60,7 +60,7 @@ describe('User Service', () => {
         findOrCreate(config: any) {
           return [{
             id: 1, email: 'jbillay@gmail.com', password: 'shoudntbehere',
-            firstName: 'Jeremy', lastName: 'Billay'
+            firstName: 'Jeremy', lastName: 'Billay',
           }, true];
         },
       },

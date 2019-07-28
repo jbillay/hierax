@@ -33,11 +33,15 @@ export class Controller {
           res.jsonp({status: 'error', message: 'Invalid credentials'});
         } else {
           const expires = moment().utc().add({ days: 7 }).unix();
-          const token = jwt.encode({ exp: expires, username: user.email }, process.env.JWT_SECRET);
+          const token = jwt.encode({
+              exp: expires,
+              email: user.email,
+              firstName: user.firstName,
+              lastName: user.lastName,
+            }, process.env.JWT_SECRET);
           const userToken = {
             token,
             expires: moment.unix(expires).format(),
-            user: user.id,
           };
           res.status(200);
           res.jsonp({

@@ -22,7 +22,7 @@ class Auth {
     };
 
     return new Strategy(params, (req: Request, payload: any, done: ICallback) => {
-      req.app.locals.db.User.findOne({ where: { email: payload.username }})
+      req.app.locals.db.User.findOne({ where: { email: payload.email }})
         .then((user: IUser) => {
           /* istanbul ignore next: passport return */
           if (user === null) {

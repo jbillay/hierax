@@ -39,6 +39,6 @@ describe('Unit Test DB: Test Initialisation', () => {
     const dbLayer: DataLayer = new DataLayer(SequelizeMock);
     const dbConnect: DataLayer = await dbLayer.connection();
     const database: Database = await dbConnect.init();
-    console.log(database.Sequelize.User);
+    expect(database.sequelize.models.User.tableName).toEqual('Users');
   });
 });

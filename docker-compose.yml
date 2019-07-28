@@ -35,7 +35,7 @@ services:
     build: ./display/
     volumes:
       - ./display:/home/display/
-      #- ./display/node_modules:/home/display/node_modules
+      - ./display/node_modules:/home/display/node_modules
     depends_on:
       - hierax-db
     links:

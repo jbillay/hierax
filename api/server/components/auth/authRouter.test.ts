@@ -4,6 +4,7 @@ import Server from '../../common/server';
 import routes from '../../routes';
 import { Application } from 'express';
 import ExpressServer from '../../common/server';
+import * as jwt from 'jwt-simple';
 
 const port: number = parseInt(process.env.PORT, 0);
 const db = {
@@ -33,6 +34,10 @@ describe('routes: auth login', () => {
     expect(response.status).toBe(200);
     expect(response.body.status).toEqual('success');
     expect(response.body.user.token).toBeDefined();
-    expect(response.body.user.user).toBe(1);
+    const token = response.body.user.token;
+    const user = jwt.decode(token, process.env.JWT_SECRET);
+    expect(user.email).toEqual('jbillay@gmail.com');
+    expect(user.firstName).toEqual('Jeremy');
+    expect(user.lastName).toEqual('Billay');
   });
 });
