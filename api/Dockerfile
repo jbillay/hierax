@@ -7,6 +7,7 @@ RUN addgroup app -g 1001
 RUN adduser app -S /bin/false -h /home/app -G app -u 100
 
 RUN npm install --global npm
+RUN npm install --global nodemon
 
 ENV HOME=/home/app
 
