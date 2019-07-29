@@ -39,3 +39,6 @@ services:
     environment:
       - DEBUG=
       - NODE_ENV=development
+volumes:
+  dbdata:
+    driver: local
