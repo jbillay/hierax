@@ -7,8 +7,6 @@ RUN addgroup display -g 1001
 RUN adduser display -S /bin/false -h /home/display -G display -u 100
 
 RUN npm install --global npm
-RUN npm install -g @quasar/cli
-
 
 ENV HOME=/home/display
 

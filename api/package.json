@@ -7,8 +7,8 @@
     "start": "node dist/index.js",
     "compile": "ts-node build.ts && tsc",
     "lint": "./node_modules/tslint/bin/tslint  -c tslint.json -p .",
-    "dev": "nodemon index.ts --exec './node_modules/tslint/bin/tslint  -c tslint.json -p . && ts-node'",
-    "dev:debug": "nodemon --exec 'node -r ts-node/register --inspect-brk' index.ts",
+    "dev": "./node_modules/nodemon/bin/nodemon.js index.ts --exec './node_modules/tslint/bin/tslint  -c tslint.json -p . && ts-node'",
+    "dev:debug": "./node_modules/nodemon/bin/nodemon.js --exec 'node -r ts-node/register --inspect-brk' index.ts",
     "test": "jest"
   },
   "author": "Jeremy Billay",

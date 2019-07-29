@@ -15,8 +15,8 @@ before_install:
   - docker info
   - sudo chown -R 100:1001 .
 script:
-  - docker-compose -p hierax build
-  - docker-compose -p hierax up -d
+  - docker-compose -f docker-compose-travis.yml -p hierax build
+  - docker-compose -f docker-compose-travis.yml -p hierax up
   - docker ps -a
   - docker-compose exec hierax-api npm test
 after_success:
