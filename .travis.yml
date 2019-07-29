@@ -1,0 +1,19 @@
+sudo: required
+language: node_js
+services:
+- docker
+before_install:
+- bash scripts/build.sh
+- bash scripts/start.sh
+script:
+- bash scripts/test.sh
+after_success:
+- sudo pip install codecov
+- codecov
+deploy:
+  provider: heroku
+  script: bash scripts/deploy_heroku.sh
+  on:
+    branch: master
+  api_key:
+    secure: TempkZWk+KijJx0MXCRMsEUGsEyQfYbQF8w6gtPbn2CymhtfvNJr/As37vdaeujA+bq2IZzXOisO81WxMeSFBV1YTIkpSErKRHKBO7U//ydl53KPz6g41wBxeW0VG9AbJMPkQOmuU2JInTKFzc+1T7S9Or9i8bhKoQ4wGCF15OCQwmA7eV98AcslbQgUaDjYIkrSg5B+0eb1jPA5bVM/TLu81h4CMZN7K5vtWC/EXyYn50tGEtlFpg8WXf5JA0YnO+tc47fYMdAsCc2zeHOPyX5sRhYWICSNbfACj/WuLBkxFByTNGcN2RSsWjpUZcdDlwtkLGJGsCokTepIyv0zF9ld1+ndULIOvKBHDxP7/a/aZJWhTSQAI7JWZ+8PJrsaD12pvl5JlV3ftp75VrhWWok5zVXfXRHU0F4OeH1ozgHiEqlBfyWu/phLdk6uotjo3IvzqAIzx6mDzbYWr87I9jc4r5qrFAMKsRL9H2QHDhH37rsVm8osJHyAzkTp1Ig0L2cL4LgHEOZlRMkcdvcbY7FTL1nXhcuLIqZ5BJq5cdkNW4DQ9cawxEPW/KZIFjnpiTFO173wdAc1s+fXJKwUa/+X1y1O4WaVofQTYASHDCoiPVQPOEajM0HhWqb0igXoFTojZ14nHN1GJR4tW01iFvEDzRn8CnoK3ugF2c/42RE=
