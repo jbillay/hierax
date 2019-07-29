@@ -2,9 +2,18 @@ sudo: required
 language: node_js
 services:
   - docker
+env: DOCKER_COMPOSE_VERSION=1.18.0
 before_install:
   - sudo /etc/init.d/mysql stop
   - npm install codecov -g
+  - sudo apt update -y
+  - sudo apt install --only-upgrade docker-ce -y
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker info
+  - sudo chown -R 100:1001 .
 script:
   - docker-compose -p hierax build
   - docker-compose -p hierax up -d
