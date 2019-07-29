@@ -3,6 +3,7 @@ language: node_js
 services:
 - docker
 before_install:
+- sudo /etc/init.d/mysql stop
 - bash scripts/build.sh
 - bash scripts/start.sh
 script:
