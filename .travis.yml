@@ -1,18 +1,18 @@
 sudo: required
 language: node_js
 services:
-- docker
+  - docker
 before_install:
-- sudo /etc/init.d/mysql stop
-- npm install codecov -g
-before_script:
-- bash scripts/build.sh
-- bash scripts/start.sh
+  - sudo /etc/init.d/mysql stop
+  - npm install codecov -g
 script:
-- bash scripts/test.sh
+  - docker-compose -p hierax build
+  - docker-compose -p hierax up -d
+  - docker ps -a
+  - docker-compose exec hierax-api npm test
 after_success:
-- sudo pip install codecov
-- codecov
+  - sudo pip install codecov
+  - codecov
 deploy:
   provider: heroku
   api_key:
