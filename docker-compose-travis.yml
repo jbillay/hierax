@@ -31,10 +31,9 @@ services:
       - REQUEST_LIMIT=100kb
       - SESSION_SECRET=mySecret
       - NODE_ENV=development
-      - DEFAULT_TIMEZONE='Europe/London'
       - SWAGGER_API_SPEC=/spec
-      - API_BASE='/v1/'
-      - CH_URL='https://api.companieshouse.gov.uk'
+      - API_BASE=/v1/
+      - JWT_SECRET=ipR6fjM%T$oc/yl5Govsu&W41
   hierax-display:
     container_name: hierax-display
     build: ./display/

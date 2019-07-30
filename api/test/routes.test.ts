@@ -4,6 +4,8 @@ import Server from '../server/common/server';
 import routes from '../server/routes';
 import { Application } from 'express';
 import ExpressServer from '../server/common/server';
+import * as jwt from 'jwt-simple';
+import moment from 'moment';
 
 const port: number = parseInt(process.env.PORT, 0);
 const db = {
@@ -36,8 +38,13 @@ describe('Test Routes: Auth mechanism', () => {
     expect(responseEntity.body.status).toEqual('error');
   });
   test('Should return failed due to an expired token', async () => {
-    // tslint:disable-next-line:max-line-length
-    const expiredToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1NjE1ODQwMzksInVzZXJuYW1lIjoiamJpbGxheUBnbWFpbC5jb20ifQ.LdgdQJ2TcIE9MDBnk_dW13uPtMIvFIu7LwM_NGNKbEs';
+    const expires = moment().utc().subtract(10, 'seconds').unix();
+    const expiredToken = jwt.encode({
+        exp: expires,
+        email: 'jbillay@gmail.com',
+        firstName: 'Jeremy',
+        lastName: 'Billay',
+      }, process.env.JWT_SECRET);
     const responseEntity = await request(app)
       .get('/v1/entity')
       .set('Authorization', 'Bearer ' + expiredToken);
