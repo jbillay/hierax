@@ -34,6 +34,9 @@ services:
       - SWAGGER_API_SPEC=/spec
       - API_BASE=/v1/
       - JWT_SECRET=ipR6fjM%T$oc/yl5Govsu&W41
+    volumes:
+      - ./api:/home/app/
+      - /home/app/node_modules
   hierax-display:
     container_name: hierax-display
     build: ./display/
@@ -46,6 +49,9 @@ services:
     environment:
       - DEBUG=
       - NODE_ENV=development
+    volumes:
+      - ./display:/home/app/
+      - /home/app/node_modules
 volumes:
   dbdata:
     driver: local
