@@ -1,5 +1,7 @@
 sudo: required
 language: node_js
+node_js:  
+  - node
 services:
   - docker
 env: DOCKER_COMPOSE_VERSION=1.18.0
@@ -13,7 +15,6 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
   - docker info
-  - sudo chown -R $UID:$UID .
 script:
   - docker-compose -f docker-compose-travis.yml -p hierax build
   - docker-compose -f docker-compose-travis.yml -p hierax up -d

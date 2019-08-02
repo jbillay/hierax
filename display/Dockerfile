@@ -10,17 +10,13 @@ RUN npm install --global npm
 
 ENV HOME=/home/display
 
+USER display
+
 COPY package.json package-lock.json $HOME/
-RUN chown -R display:display $HOME
 
-USER display
 WORKDIR $HOME
-RUN npm install
 
-USER root
-COPY . $HOME/
-RUN chown -R display:display $HOME
-USER display
+RUN npm install
 
 RUN npm rebuild node-sass
 

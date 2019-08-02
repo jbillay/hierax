@@ -1,4 +1,4 @@
-FROM node:8-alpine
+FROM node:10-alpine
 
 RUN apk add --no-cache make gcc g++ python
 
@@ -10,16 +10,14 @@ RUN npm install --global npm
 
 ENV HOME=/home/app
 
-COPY package.json package-lock.json $HOME/
-RUN chown -R app:app $HOME
-
 USER app
-WORKDIR $HOME
+
+RUN mkdir $HOME/api
+
+COPY package.json package-lock.json $HOME/api/
+
+WORKDIR $HOME/api/
+
 RUN npm install
-
-USER root
-COPY . $HOME/
-RUN chown -R app:app $HOME
-USER app
 
 CMD [ "npm", "run", "dev" ]

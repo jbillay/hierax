@@ -35,8 +35,8 @@ services:
       - API_BASE=/v1/
       - JWT_SECRET=ipR6fjM%T$oc/yl5Govsu&W41
     volumes:
-      - ./api:/home/app/
-      - /home/app/node_modules
+      - ./api:/home/app/api
+      - /home/app/api/node_modules
   hierax-display:
     container_name: hierax-display
     build: ./display/
