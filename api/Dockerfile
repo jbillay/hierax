@@ -14,7 +14,7 @@ USER app
 
 RUN mkdir $HOME/coverage
 
-COPY package.json package-lock.json $HOME
+COPY package.json package-lock.json $HOME/
 
 WORKDIR $HOME
 
