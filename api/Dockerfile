@@ -12,11 +12,11 @@ ENV HOME=/home/app
 
 USER app
 
-RUN mkdir $HOME/api
+RUN mkdir $HOME/coverage
 
-COPY package.json package-lock.json $HOME/api/
+COPY package.json package-lock.json $HOME
 
-WORKDIR $HOME/api/
+WORKDIR $HOME
 
 RUN npm install
 
