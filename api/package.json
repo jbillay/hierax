@@ -33,7 +33,7 @@
     "nodemon": "^1.19.1",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "sequelize": "^5.11.0",
+    "sequelize": "^5.15.1",
     "sqlite3": "^4.0.9",
     "swagger-express-middleware": "^2.0.2",
     "winston": "^3.1.0"
